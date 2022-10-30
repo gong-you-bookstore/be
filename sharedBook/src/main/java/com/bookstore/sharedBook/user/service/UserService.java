@@ -1,8 +1,11 @@
 package com.bookstore.sharedBook.user.service;
 
-import com.bookstore.sharedBook.user.dto.request.UserRequestDto;
-import com.bookstore.sharedBook.user.dto.response.UserResponseDto;
+import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
+import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
+import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
+import com.bookstore.sharedBook.user.dto.response.SignUpResponseDto;
 
 public interface UserService {
-    UserResponseDto register(UserRequestDto userRequestDto);
+    SignUpResponseDto register(SignUpRequestDto signUpRequestDto);
+    SignInResponseDto login(SignInRequestDto signInRequestDto);
 }

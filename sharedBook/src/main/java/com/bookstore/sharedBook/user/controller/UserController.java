@@ -2,8 +2,10 @@ package com.bookstore.sharedBook.user.controller;
 
 import com.bookstore.sharedBook.common.ResponseService;
 import com.bookstore.sharedBook.common.SingleResult;
-import com.bookstore.sharedBook.user.dto.request.UserRequestDto;
-import com.bookstore.sharedBook.user.dto.response.UserResponseDto;
+import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
+import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
+import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
+import com.bookstore.sharedBook.user.dto.response.SignUpResponseDto;
 import com.bookstore.sharedBook.user.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +25,12 @@ public class UserController {
     private final ResponseService responseService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SingleResult<UserResponseDto>> signup(@RequestBody UserRequestDto userRequestDto){
-        return new ResponseEntity<>(responseService.getSingleResult(userService.register(userRequestDto)), HttpStatus.OK);
+    public ResponseEntity<SingleResult<SignUpResponseDto>> signup(@RequestBody SignUpRequestDto signUpRequestDto){
+        return new ResponseEntity<>(responseService.getSingleResult(userService.register(signUpRequestDto)), HttpStatus.OK);
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<SingleResult<UserResponseDto>> signin(@RequestBody UserRequestDto userRequestDto){
-        return null;
+    public ResponseEntity<SingleResult<SignInResponseDto>> signin(@RequestBody SignInRequestDto signInRequestDto){
+        return new ResponseEntity<>(responseService.getSingleResult(userService.login(signInRequestDto)), HttpStatus.OK);
     }
 }
