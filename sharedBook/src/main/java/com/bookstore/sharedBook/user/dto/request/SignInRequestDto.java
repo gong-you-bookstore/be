@@ -4,12 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
-public class UserRequestDto {
-    private String name;
-    private String nickname;
+public class SignInRequestDto {
     private String email;
     private String password;
-    private Integer age;
-    private String gender;
 }
