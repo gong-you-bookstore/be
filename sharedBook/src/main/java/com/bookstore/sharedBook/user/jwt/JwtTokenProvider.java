@@ -37,8 +37,9 @@ public class JwtTokenProvider {
         key = Keys.hmacShaKeyFor(bytes);
     }
 
-    public String createAccessToken(String userId) {
+    public String createAccessToken(String userId, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userId);
+        claims.put("roles", roles);
         Date now = new Date();
 
         String accessToken =  Jwts.builder()
@@ -65,6 +66,7 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String accessToken){
         Claims claims = getClaims(accessToken);
+        log.info("claims " + claims);
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(
