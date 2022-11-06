@@ -1,7 +1,6 @@
 package com.bookstore.sharedBook.user.service;
 
-import com.bookstore.sharedBook.config.exception.IdException;
-import com.bookstore.sharedBook.config.exception.PasswordException;
+import com.bookstore.sharedBook.config.exception.CustomException;
 import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
 import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
 import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
@@ -14,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collections;
+
+import static com.bookstore.sharedBook.config.exception.ErrorCode.PASSWORD_NOT_MATCH;
+import static com.bookstore.sharedBook.config.exception.ErrorCode.USER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -42,14 +44,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public SignInResponseDto login(SignInRequestDto signInRequestDto) {
-        User user = userRepository.findUserByEmail(signInRequestDto.getEmail()).orElseThrow(IdException::new);
+        User user = userRepository.findUserByEmail(signInRequestDto.getEmail()).orElseThrow(()-> new CustomException(USER_NOT_FOUND));
         if (!passwordEncoder.matches(signInRequestDto.getPassword(), user.getPassword())) {
-            throw new PasswordException();
+            throw new CustomException(PASSWORD_NOT_MATCH);
         }
         String accessToken = jwtTokenProvider.createAccessToken(user.getId().toString(), user.getRoles());
         return SignInResponseDto.toSignInResponseDto(signInRequestDto.getEmail(), accessToken);
     }
-
 
 
 }
