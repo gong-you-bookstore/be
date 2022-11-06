@@ -28,6 +28,7 @@ public class User extends BaseEntity {
     private List<String> roles = new ArrayList<>();
     private Integer age;
     private String gender;
+    @ColumnDefault("3")
     private Integer token;
 
 }
