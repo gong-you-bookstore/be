@@ -29,7 +29,7 @@ public class WebSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/test").authenticated()
+                .antMatchers("/book").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .exceptionHandling()
