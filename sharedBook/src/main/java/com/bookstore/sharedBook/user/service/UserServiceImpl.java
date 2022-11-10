@@ -30,12 +30,9 @@ public class UserServiceImpl implements UserService{
         String encodedPassword = passwordEncoder.encode(signUpRequestDto.getPassword());
         User user = User.builder()
                 .name(signUpRequestDto.getName())
-                .nickname(signUpRequestDto.getNickname())
                 .email(signUpRequestDto.getEmail())
                 .password(encodedPassword)
                 .roles(Collections.singletonList("ROLE_USER"))
-                .age(signUpRequestDto.getAge())
-                .gender(signUpRequestDto.getGender())
                 .build();
 
         userRepository.save(user);
