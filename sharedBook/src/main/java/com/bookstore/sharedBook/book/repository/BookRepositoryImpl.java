@@ -2,6 +2,7 @@ package com.bookstore.sharedBook.book.repository;
 
 import com.bookstore.sharedBook.book.entity.Book;
 import com.bookstore.sharedBook.book.entity.QBook;
+import com.bookstore.sharedBook.book.entity.QShelf;
 import com.bookstore.sharedBook.config.DataTypeConverter;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class BookRepositoryImpl implements BookRepository{
     private final BookJpaRepository bookJpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
     private final QBook book = QBook.book;
+    private final QShelf shelf = QShelf.shelf;
 
     @Override
     public Book save(Book book) {
@@ -28,6 +30,11 @@ public class BookRepositoryImpl implements BookRepository{
         return bookJpaRepository.findAll();
     }
 
+    @Override
+    public Optional<Book> findBookById(Long isbn) {
+        return bookJpaRepository.findById(isbn);
+    }
+
 //    @Override
 //    public List<Book> findAllBooksByUserId(String userId) {
 //        //return bookJpaRepository.findAllByUserId(UUID.fromString(userId));
@@ -37,10 +44,6 @@ public class BookRepositoryImpl implements BookRepository{
 //                .fetch();
 //    }
 
-    @Override
-    public Optional<Book> findBookById(Long isbn) {
-        return bookJpaRepository.findById(isbn);
-    }
 
 //    @Override
 //    public long patchBookStatus(Long isbn, UUID userId, String status) {

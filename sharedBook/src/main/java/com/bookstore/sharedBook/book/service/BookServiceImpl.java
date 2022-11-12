@@ -69,7 +69,8 @@ public class BookServiceImpl implements BookService{
     @Override
     public BookDetailResponseDto getBookById(Long isbn) {
         Book book = bookRepository.findBookById(isbn).orElseThrow(()->new CustomException(BOOK_NOT_FOUND));
-        return BookDetailResponseDto.toBookDetailResponseDto(book);
+        List<String> userList = shelfService.getUserEmailsByIsbn(isbn);
+        return BookDetailResponseDto.toBookDetailResponseDto(book, userList);
     }
 
 //    @Override
