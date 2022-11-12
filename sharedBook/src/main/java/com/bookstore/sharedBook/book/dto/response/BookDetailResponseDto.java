@@ -30,7 +30,6 @@ public class BookDetailResponseDto {
 
     public static BookDetailResponseDto toBookDetailResponseDto(Book book){
         return BookDetailResponseDto.builder()
-                .userId(book.getUserId())
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .content(book.getContent())
@@ -39,10 +38,6 @@ public class BookDetailResponseDto {
                 .kdc(book.getKdc())
                 .price(book.getPrice())
                 .likeCnt(book.getLikeCnt())
-                .status(book.getStatus())
-                .token(book.getToken())
-                .latitude(book.getLatitude())
-                .longitude(book.getLongitude())
                 .build();
     }
 }
