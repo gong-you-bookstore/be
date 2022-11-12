@@ -13,8 +13,12 @@ import com.bookstore.sharedBook.common.SingleResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -27,8 +31,9 @@ public class BookController {
     @PostMapping
     public ResponseEntity<SingleResult<ShelfResponseDto>> saveBook(
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
-            @RequestBody SaveBookRequestDto saveBookRequestDto){
-        return new ResponseEntity<>(responseService.getSingleResult(bookService.save(accessToken, saveBookRequestDto)), HttpStatus.CREATED);
+            @RequestPart("request") SaveBookRequestDto saveBookRequestDto,
+            @RequestPart("imgs") List<MultipartFile> multipartFiles){
+        return new ResponseEntity<>(responseService.getSingleResult(bookService.save(accessToken, saveBookRequestDto, multipartFiles)), HttpStatus.CREATED);
     }
 
     @GetMapping

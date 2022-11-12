@@ -1,6 +1,7 @@
 package com.bookstore.sharedBook.book.dto.request;
 
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.geom.Point2D;
 import java.util.List;

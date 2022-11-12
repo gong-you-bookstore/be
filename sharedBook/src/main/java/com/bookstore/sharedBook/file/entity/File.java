@@ -14,8 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class File extends BaseEntity {
+    private String name;
     @Column(columnDefinition = "BINARY(16)")
-    private UUID bookId;
+    private UUID shelfId;
     @Column(columnDefinition = "BINARY(16)")
     private UUID uploaderId;
 }

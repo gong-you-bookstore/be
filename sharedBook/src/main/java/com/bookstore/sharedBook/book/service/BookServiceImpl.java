@@ -10,10 +10,12 @@ import com.bookstore.sharedBook.book.entity.Shelf;
 import com.bookstore.sharedBook.book.repository.BookRepositoryImpl;
 import com.bookstore.sharedBook.book.repository.ShelfRepositoryImpl;
 import com.bookstore.sharedBook.config.exception.CustomException;
+import com.bookstore.sharedBook.file.service.FileServiceImpl;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,11 +30,12 @@ import static com.bookstore.sharedBook.config.exception.ErrorCode.BOOK_NOT_FOUND
 @Slf4j
 public class BookServiceImpl implements BookService{
     private final ShelfServiceImpl shelfService;
+    private final FileServiceImpl fileService;
     private final BookRepositoryImpl bookRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public ShelfResponseDto save(String token, SaveBookRequestDto saveBookRequestDto) {
+    public ShelfResponseDto save(String token, SaveBookRequestDto saveBookRequestDto, List<MultipartFile> multipartFiles) {
         String userId = jwtTokenProvider.getUserIdFromToken(token);
         if(!bookRepository.findBookById(saveBookRequestDto.getIsbn()).isPresent()){
             Book book = Book.builder()
@@ -47,8 +50,9 @@ public class BookServiceImpl implements BookService{
                     .build();
             bookRepository.save(book);
         }
-        return ShelfResponseDto.toShelfResponseDto(shelfService.save(userId, saveBookRequestDto));
-
+        Shelf shelf = shelfService.save(userId, saveBookRequestDto);
+        fileService.save(multipartFiles, shelf.getId().toString(), userId);
+        return ShelfResponseDto.toShelfResponseDto(shelf);
     }
 
     @Override
