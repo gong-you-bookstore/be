@@ -21,16 +21,16 @@ public class FileRepositoryImpl implements FileRepository{
         return fileJpaRepository.save(file);
     }
 
-    @Override
-    public List<File> findAllFiles(String bookId) {
-        return jpaQueryFactory
-                .selectFrom(file)
-                .where(file.bookId.eq(UUID.fromString(bookId)))
-                .fetch();
-    }
-
-    @Override
-    public void delete(UUID fileId) {
-        fileJpaRepository.deleteById(fileId);
-    }
+//    @Override
+//    public List<File> findAllFiles(String bookId) {
+//        return jpaQueryFactory
+//                .selectFrom(file)
+//                .where(file.bookId.eq(UUID.fromString(bookId)))
+//                .fetch();
+//    }
+//
+//    @Override
+//    public void delete(UUID fileId) {
+//        fileJpaRepository.deleteById(fileId);
+//    }
 }

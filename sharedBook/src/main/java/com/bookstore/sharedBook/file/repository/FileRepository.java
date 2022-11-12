@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface FileRepository {
     File save(File file);
-    List<File> findAllFiles(String bookId);
-    void delete(UUID fileId);
+    //List<File> findAllFiles(String bookId);
+    //void delete(UUID fileId);
 }
