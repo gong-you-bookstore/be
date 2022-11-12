@@ -38,7 +38,7 @@ public class BookServiceImpl implements BookService{
             Book book = Book.builder()
                     .isbn(saveBookRequestDto.getIsbn())
                     .title(saveBookRequestDto.getTitle())
-                    .author(saveBookRequestDto.getAuthor())
+                    .author(saveBookRequestDto.getAuthor().get(0))
                     .content(saveBookRequestDto.getContent())
                     .thumbnail(saveBookRequestDto.getThumbnail())
                     .publisher(saveBookRequestDto.getPublisher())
