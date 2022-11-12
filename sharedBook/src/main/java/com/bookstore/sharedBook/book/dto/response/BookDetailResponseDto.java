@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -14,7 +15,6 @@ import java.util.UUID;
 @Builder
 @Getter
 public class BookDetailResponseDto {
-    private UUID userId;
     private String title;
     private String author;
     private String content;
@@ -23,14 +23,10 @@ public class BookDetailResponseDto {
     private String kdc;
     private Integer price;
     private Integer likeCnt;
-    private String status;
-    private Integer token;
-    private Long latitude;
-    private Long longitude;
+    private List<String> userList;
 
-    public static BookDetailResponseDto toBookDetailResponseDto(Book book){
+    public static BookDetailResponseDto toBookDetailResponseDto(Book book, List<String> userList){
         return BookDetailResponseDto.builder()
-                .userId(book.getUserId())
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .content(book.getContent())
@@ -39,10 +35,7 @@ public class BookDetailResponseDto {
                 .kdc(book.getKdc())
                 .price(book.getPrice())
                 .likeCnt(book.getLikeCnt())
-                .status(book.getStatus())
-                .token(book.getToken())
-                .latitude(book.getLatitude())
-                .longitude(book.getLongitude())
+                .userList(userList)
                 .build();
     }
 }

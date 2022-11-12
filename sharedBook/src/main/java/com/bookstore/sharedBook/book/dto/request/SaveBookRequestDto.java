@@ -1,14 +1,16 @@
 package com.bookstore.sharedBook.book.dto.request;
 
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.geom.Point2D;
+import java.util.List;
 
 @Getter
 public class SaveBookRequestDto {
     private Long isbn;
     private String title;
-    private String author;
+    private List<String> author;
     private String content;
     private String thumbnail;
     private String publisher;

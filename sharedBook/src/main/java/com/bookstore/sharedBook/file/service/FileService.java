@@ -1,10 +1,9 @@
 package com.bookstore.sharedBook.file.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-@RequiredArgsConstructor
-public class FileService {
+import java.util.List;
 
+public interface FileService {
+    void save(List<MultipartFile> multipartFile, String shelfId, String userId);
 }
