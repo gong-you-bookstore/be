@@ -1,12 +1,6 @@
 package com.bookstore.sharedBook.user.service;
 
-import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
-import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
-import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
-import com.bookstore.sharedBook.user.dto.response.SignUpResponseDto;
-import com.bookstore.sharedBook.user.repository.UserRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.bookstore.sharedBook.user.repository.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,7 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class UserServiceTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Autowired
     private UserServiceImpl userService;

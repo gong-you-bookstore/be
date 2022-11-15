@@ -26,7 +26,7 @@ public class User extends BaseEntity {
     @ElementCollection(fetch= FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
-    private Integer age;
+    private Integer yearOfBirth;
     private String gender;
     @ColumnDefault("3")
     private Integer token;

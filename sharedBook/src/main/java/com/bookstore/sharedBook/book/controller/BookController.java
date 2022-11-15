@@ -32,7 +32,8 @@ public class BookController {
     public ResponseEntity<SingleResult<ShelfResponseDto>> saveBook(
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
             @RequestPart("request") SaveBookRequestDto saveBookRequestDto,
-            @RequestPart("imgs") List<MultipartFile> multipartFiles){
+            @RequestPart(value = "imgs", required = false) List<MultipartFile> multipartFiles){
+        log.info("multipartFiles  " + multipartFiles);
         return new ResponseEntity<>(responseService.getSingleResult(bookService.save(accessToken, saveBookRequestDto, multipartFiles)), HttpStatus.CREATED);
     }
 

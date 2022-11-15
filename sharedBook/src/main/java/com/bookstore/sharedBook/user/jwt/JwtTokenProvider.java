@@ -1,6 +1,6 @@
 package com.bookstore.sharedBook.user.jwt;
 
-import com.bookstore.sharedBook.user.repository.UserRepository;
+import com.bookstore.sharedBook.user.repository.UserJpaRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
     private String SECRET_KEY;
     private final long accessTokenValidTime = 60 * 60 * 24 * 1000L;
     private Key key;
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @PostConstruct
     protected void init() {
