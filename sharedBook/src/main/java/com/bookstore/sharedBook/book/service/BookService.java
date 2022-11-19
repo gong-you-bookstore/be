@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface BookService {
-    ShelfResponseDto save(String token, SaveBookRequestDto saveBookRequestDto, List<MultipartFile>multipartFiles);
+    BookResponseDto save(String token, SaveBookRequestDto saveBookRequestDto);
     List<BookResponseDto> getAllBooks();
     //List<BookResponseDto> getAllSavedBooksByUser(String token);
     BookDetailResponseDto getBookById(Long isbn);

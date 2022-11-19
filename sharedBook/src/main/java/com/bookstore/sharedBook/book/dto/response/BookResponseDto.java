@@ -14,11 +14,15 @@ import java.util.UUID;
 @Builder
 @Getter
 public class BookResponseDto {
+    private Long isbn;
+    private String title;
     private String kdc;
     private String thumbnail;
 
     public static BookResponseDto toBookResponseDto(Book book){
         return BookResponseDto.builder()
+                .isbn(book.getIsbn())
+                .title(book.getTitle())
                 .kdc(book.getKdc())
                 .thumbnail(book.getThumbnail())
                 .build();
