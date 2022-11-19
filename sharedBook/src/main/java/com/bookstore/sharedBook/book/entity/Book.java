@@ -1,10 +1,11 @@
 package com.bookstore.sharedBook.book.entity;
-import com.bookstore.sharedBook.config.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
