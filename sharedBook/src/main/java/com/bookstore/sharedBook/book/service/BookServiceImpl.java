@@ -30,15 +30,13 @@ import static com.bookstore.sharedBook.config.exception.ErrorCode.BOOK_NOT_FOUND
 @Slf4j
 public class BookServiceImpl implements BookService{
     private final ShelfServiceImpl shelfService;
-    private final FileServiceImpl fileService;
     private final BookRepositoryImpl bookRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
-    public ShelfResponseDto save(String token, SaveBookRequestDto saveBookRequestDto, List<MultipartFile> multipartFiles) {
+    public BookResponseDto save(String token, SaveBookRequestDto saveBookRequestDto) {
         String userId = jwtTokenProvider.getUserIdFromToken(token);
-        if(!bookRepository.findBookById(saveBookRequestDto.getIsbn()).isPresent()){
-            Book book = Book.builder()
+        Book book = Book.builder()
                     .isbn(saveBookRequestDto.getIsbn())
                     .title(saveBookRequestDto.getTitle())
                     .author(saveBookRequestDto.getAuthor().get(0))
@@ -48,11 +46,7 @@ public class BookServiceImpl implements BookService{
                     .kdc(saveBookRequestDto.getKdc())
                     .price(saveBookRequestDto.getPrice())
                     .build();
-            bookRepository.save(book);
-        }
-        Shelf shelf = shelfService.save(userId, saveBookRequestDto);
-        fileService.save(multipartFiles, shelf.getId().toString(), userId);
-        return ShelfResponseDto.toShelfResponseDto(shelf);
+            return BookResponseDto.toBookResponseDto(bookRepository.save(book));
     }
 
     @Override

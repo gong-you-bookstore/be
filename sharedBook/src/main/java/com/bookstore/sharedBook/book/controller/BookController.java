@@ -5,6 +5,7 @@ import com.bookstore.sharedBook.book.dto.response.BookDetailResponseDto;
 import com.bookstore.sharedBook.book.dto.response.BookResponseDto;
 import com.bookstore.sharedBook.book.dto.response.SaveBookResponseDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfResponseDto;
+import com.bookstore.sharedBook.book.facade.BookFacadeImpl;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
 import com.bookstore.sharedBook.common.CommonResult;
 import com.bookstore.sharedBook.common.ListResult;
@@ -13,7 +14,6 @@ import com.bookstore.sharedBook.common.SingleResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +26,7 @@ import java.util.List;
 @RequestMapping("/book")
 public class BookController {
     private final BookServiceImpl bookService;
+    private final BookFacadeImpl bookFacade;
     private final ResponseService responseService;
 
     @PostMapping
@@ -33,8 +34,7 @@ public class BookController {
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
             @RequestPart("request") SaveBookRequestDto saveBookRequestDto,
             @RequestPart(value = "imgs", required = false) List<MultipartFile> multipartFiles){
-        log.info("multipartFiles  " + multipartFiles);
-        return new ResponseEntity<>(responseService.getSingleResult(bookService.save(accessToken, saveBookRequestDto, multipartFiles)), HttpStatus.CREATED);
+        return new ResponseEntity<>(responseService.getSingleResult(bookFacade.save(accessToken, saveBookRequestDto, multipartFiles)), HttpStatus.CREATED);
     }
 
     @GetMapping
