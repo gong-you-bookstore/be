@@ -1,6 +1,8 @@
 package com.bookstore.sharedBook.book.facade;
 
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
+import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
+import com.bookstore.sharedBook.book.dto.response.ShelfDetailResponseDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfResponseDto;
 import com.bookstore.sharedBook.book.entity.Shelf;
 import com.bookstore.sharedBook.book.repository.BookRepositoryImpl;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +39,14 @@ public class BookFacadeImpl implements BookFacade{
             fileService.save(multipartFileList, shelf.getId().toString(), userId);
         }
         return ShelfResponseDto.toShelfResponseDto(shelf);
-
     }
+
+    @Override
+    public ShelfDetailResponseDto getShelf(String token, ShelfDetailRequestDto shelfDetailRequestDto) {
+        String userId = jwtTokenProvider.getUserIdFromToken(token);
+        Shelf shelf = shelfService.getShelf(shelfDetailRequestDto);
+        List<String> fileNameList = fileService.getFileIdsByShelfId(shelf.getId().toString());
+        return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileNameList);
+    }
+
 }
