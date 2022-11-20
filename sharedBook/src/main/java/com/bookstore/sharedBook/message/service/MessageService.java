@@ -5,6 +5,7 @@ import com.bookstore.sharedBook.message.dto.response.MessageReceivedDetailRespon
 import com.bookstore.sharedBook.message.dto.response.MessageReceivedSimpleResponseDto;
 import com.bookstore.sharedBook.message.dto.response.MessageSentDetailResponseDto;
 import com.bookstore.sharedBook.message.dto.response.MessageSentSimpleResponseDto;
+import com.bookstore.sharedBook.message.entity.Message;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface MessageService {
     List<MessageSentSimpleResponseDto> getAllSentMessages(String token);
     MessageReceivedDetailResponseDto getReceivedMessageDetail(String token, String messageId);
     MessageSentDetailResponseDto getSentMessageDetail(String token, String messageId);
+
+
 }

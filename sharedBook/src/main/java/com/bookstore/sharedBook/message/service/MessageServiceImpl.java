@@ -35,9 +35,9 @@ public class MessageServiceImpl implements MessageService{
         User receiver = userRepository.findUserByEmail(messageRequestDto.getReceiverEmail()).orElseThrow(()->new CustomException(RECEIVER_NOT_FOUND));
 
         Message message = Message.builder()
+                .shelfId(UUID.fromString(messageRequestDto.getShelfId()))
                 .sender(UUID.fromString(senderId))
                 .receiver(receiver.getId())
-                .opened(false)
                 .content(messageRequestDto.getContent())
                 .build();
 
@@ -83,6 +83,7 @@ public class MessageServiceImpl implements MessageService{
         String receiverEmail = userRepository.findUserEmail(message.getReceiver());
         return MessageSentDetailResponseDto.toMessageDetailResponseDto(message, receiverEmail);
     }
+
 
 
 }

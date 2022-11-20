@@ -15,8 +15,9 @@ import java.util.UUID;
 @Builder
 @Getter
 public class ShelfDetailResponseDto {
+    private String shelfId;
     private Long isbn;
-    private UUID userId;
+    private String userId;
     private String status;
     private Integer token;
     private Long latitude;
@@ -25,8 +26,9 @@ public class ShelfDetailResponseDto {
 
     public static ShelfDetailResponseDto toShelfResponseDto(Shelf shelf, List<String> images){
         return ShelfDetailResponseDto.builder()
+                .shelfId(shelf.getId().toString())
                 .isbn(shelf.getIsbn())
-                .userId(shelf.getUserId())
+                .userId(shelf.getUserId().toString())
                 .status(shelf.getStatus())
                 .token(shelf.getToken())
                 .latitude(shelf.getLatitude())
