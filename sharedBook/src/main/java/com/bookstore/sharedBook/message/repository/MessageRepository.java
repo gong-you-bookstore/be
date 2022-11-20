@@ -11,4 +11,6 @@ public interface MessageRepository {
     List<Message> findAllByReceiverId(UUID receiverId);
     List<Message> findAllBySenderId(UUID senderId);
     Optional<Message> findById(UUID messageId);
+
+    List<Message> findAllMessagesByShelfIdAndTwoUsers(UUID shelfId, UUID userId, UUID counterpartId);
 }

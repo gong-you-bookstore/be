@@ -17,10 +17,11 @@ import java.util.UUID;
 @DynamicInsert
 public class Message extends BaseEntity {
     @Column(columnDefinition = "BINARY(16)")
+    private UUID shelfId;
+    @Column(columnDefinition = "BINARY(16)")
     private UUID sender;
     @Column(columnDefinition = "BINARY(16)")
     private UUID receiver;
-    private boolean opened;
     @Column(columnDefinition = "TEXT")
     private String content;
 }

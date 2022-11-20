@@ -10,11 +10,13 @@ import com.bookstore.sharedBook.user.entity.Gender;
 import com.bookstore.sharedBook.user.entity.User;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
 import com.bookstore.sharedBook.user.repository.UserJpaRepository;
+import com.bookstore.sharedBook.user.repository.UserRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.bookstore.sharedBook.config.exception.ErrorCode.PASSWORD_NOT_MATCH;
@@ -26,6 +28,7 @@ import static com.bookstore.sharedBook.config.exception.ErrorCode.USER_NOT_FOUND
 public class UserServiceImpl implements UserService{
     private final PasswordEncoder passwordEncoder;
     private final UserJpaRepository userJpaRepository;
+    private final UserRepositoryImpl userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
@@ -58,6 +61,12 @@ public class UserServiceImpl implements UserService{
         user.setGender(saveSurveyRequestDto.getGender());
         user.setYearOfBirth(saveSurveyRequestDto.getYearOfBirth());
         userJpaRepository.save(user);
+    }
+
+    @Override
+    public String getUserIdFromUserEmail(String email) {
+        User user = userRepository.findUserByEmail(email).orElseThrow(()->new CustomException(USER_NOT_FOUND));
+        return user.getId().toString();
     }
 
 

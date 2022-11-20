@@ -6,8 +6,11 @@ import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
 import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
 import com.bookstore.sharedBook.user.dto.response.SignUpResponseDto;
 
+import java.util.UUID;
+
 public interface UserService {
     SignUpResponseDto register(SignUpRequestDto signUpRequestDto);
     SignInResponseDto login(SignInRequestDto signInRequestDto);
     void updateSurveyInfo(String userId, SaveSurveyRequestDto saveSurveyRequestDto);
+    String getUserIdFromUserEmail(String email);
 }

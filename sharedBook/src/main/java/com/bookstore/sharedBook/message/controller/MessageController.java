@@ -4,11 +4,10 @@ import com.bookstore.sharedBook.common.CommonResult;
 import com.bookstore.sharedBook.common.ListResult;
 import com.bookstore.sharedBook.common.ResponseService;
 import com.bookstore.sharedBook.common.SingleResult;
+import com.bookstore.sharedBook.message.dto.request.MessageBetweenRequestDto;
 import com.bookstore.sharedBook.message.dto.request.MessageRequestDto;
-import com.bookstore.sharedBook.message.dto.response.MessageReceivedDetailResponseDto;
-import com.bookstore.sharedBook.message.dto.response.MessageReceivedSimpleResponseDto;
-import com.bookstore.sharedBook.message.dto.response.MessageSentDetailResponseDto;
-import com.bookstore.sharedBook.message.dto.response.MessageSentSimpleResponseDto;
+import com.bookstore.sharedBook.message.dto.response.*;
+import com.bookstore.sharedBook.message.facade.MessageFacadeImpl;
 import com.bookstore.sharedBook.message.service.MessageServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/message")
 public class MessageController {
     private final MessageServiceImpl messageService;
+    private final MessageFacadeImpl messageFacade;
     private final ResponseService responseService;
 
     @PostMapping
@@ -57,6 +57,13 @@ public class MessageController {
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
             @PathVariable String messageId){
         return new ResponseEntity<>(responseService.getSingleResult(messageService.getSentMessageDetail(accessToken, messageId)), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<ListResult<MessageBetweenUserResponseDto>> getMessages(
+            @RequestHeader("X-AUTH-TOKEN") String accessToken,
+            @RequestBody MessageBetweenRequestDto messageBetweenRequestDto){
+        return new ResponseEntity<>(responseService.getListResult(messageFacade.getAllMessagesByShelfId(accessToken, messageBetweenRequestDto.getShelfId(), messageBetweenRequestDto.getEmail())), HttpStatus.OK);
     }
 
 
