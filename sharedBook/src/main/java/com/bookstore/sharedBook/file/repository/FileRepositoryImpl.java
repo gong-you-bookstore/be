@@ -21,6 +21,15 @@ public class FileRepositoryImpl implements FileRepository{
         return fileJpaRepository.save(file);
     }
 
+    @Override
+    public List<UUID> findFileIdsByShelfId(UUID shelfId) {
+        return jpaQueryFactory
+                .select(file.id)
+                .from(file)
+                .where(file.shelfId.eq(shelfId))
+                .fetch();
+    }
+
 //    @Override
 //    public List<File> findAllFiles(String bookId) {
 //        return jpaQueryFactory

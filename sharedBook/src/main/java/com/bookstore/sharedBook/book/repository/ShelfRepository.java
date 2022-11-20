@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ShelfRepository {
     Shelf save(Shelf shelf);
     List<String> getUserEmailsByIsbn(Long isbn);
+    Shelf getShelf(Long isbn, UUID userId);
 }

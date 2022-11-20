@@ -1,12 +1,11 @@
 package com.bookstore.sharedBook.book.controller;
 
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
-import com.bookstore.sharedBook.book.dto.response.BookDetailResponseDto;
-import com.bookstore.sharedBook.book.dto.response.BookResponseDto;
-import com.bookstore.sharedBook.book.dto.response.SaveBookResponseDto;
-import com.bookstore.sharedBook.book.dto.response.ShelfResponseDto;
+import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
+import com.bookstore.sharedBook.book.dto.response.*;
 import com.bookstore.sharedBook.book.facade.BookFacadeImpl;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
+import com.bookstore.sharedBook.book.service.ShelfServiceImpl;
 import com.bookstore.sharedBook.common.CommonResult;
 import com.bookstore.sharedBook.common.ListResult;
 import com.bookstore.sharedBook.common.ResponseService;
@@ -26,6 +25,7 @@ import java.util.List;
 @RequestMapping("/book")
 public class BookController {
     private final BookServiceImpl bookService;
+    private final ShelfServiceImpl shelfService;
     private final BookFacadeImpl bookFacade;
     private final ResponseService responseService;
 
@@ -47,6 +47,13 @@ public class BookController {
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
             @PathVariable Long isbn){
         return new ResponseEntity<>(responseService.getSingleResult(bookService.getBookById(isbn)), HttpStatus.OK);
+    }
+
+    @GetMapping("/shelf")
+    public ResponseEntity<SingleResult<ShelfDetailResponseDto>> getShelfDetail(
+            @RequestHeader("X-AUTH-TOKEN") String accessToken,
+            @RequestBody ShelfDetailRequestDto shelfDetailRequestDto){
+        return new ResponseEntity<>(responseService.getSingleResult(bookFacade.getShelf(accessToken, shelfDetailRequestDto)), HttpStatus.OK);
     }
 
 //    @GetMapping("/my")

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,5 +27,15 @@ public class FileServiceImpl implements FileService{
             fileRepository.save(file);
         }
 
+    }
+
+    @Override
+    public List<String> getFileIdsByShelfId(String shelfId) {
+        List<UUID> rets = fileRepository.findFileIdsByShelfId(UUID.fromString(shelfId));
+        List<String> res = new ArrayList<>();
+        for(UUID ret : rets){
+            res.add(ret.toString());
+        }
+        return res;
     }
 }

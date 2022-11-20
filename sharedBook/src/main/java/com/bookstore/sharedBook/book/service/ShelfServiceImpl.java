@@ -1,6 +1,8 @@
 package com.bookstore.sharedBook.book.service;
 
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
+import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
+import com.bookstore.sharedBook.book.dto.response.ShelfDetailResponseDto;
 import com.bookstore.sharedBook.book.entity.Shelf;
 import com.bookstore.sharedBook.book.repository.ShelfRepositoryImpl;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +40,11 @@ public class ShelfServiceImpl implements ShelfService{
             res.add(email.split("@")[0]);
         }
         return res;
+    }
+
+    @Override
+    public Shelf getShelf(ShelfDetailRequestDto shelfDetailRequestDto) {
+        return shelfRepository.getShelf(shelfDetailRequestDto.getIsbn(), UUID.fromString(shelfDetailRequestDto.getUserId()));
+
     }
 }
