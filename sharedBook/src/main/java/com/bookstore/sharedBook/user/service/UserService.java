@@ -13,4 +13,5 @@ public interface UserService {
     SignInResponseDto login(SignInRequestDto signInRequestDto);
     void updateSurveyInfo(String userId, SaveSurveyRequestDto saveSurveyRequestDto);
     String getUserIdFromUserEmail(String email);
+    String getUserEmailFromUserId(String userId);
 }

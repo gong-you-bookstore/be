@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface MessageService {
     void send(String token, MessageRequestDto messageRequestDto);
-    List<MessageReceivedSimpleResponseDto> getAllReceivedMessages(String token);
-    List<MessageSentSimpleResponseDto> getAllSentMessages(String token);
-    MessageReceivedDetailResponseDto getReceivedMessageDetail(String token, String messageId);
-    MessageSentDetailResponseDto getSentMessageDetail(String token, String messageId);
+//    List<MessageReceivedSimpleResponseDto> getAllReceivedMessages(String token);
+//    List<MessageSentSimpleResponseDto> getAllSentMessages(String token);
+//    MessageReceivedDetailResponseDto getReceivedMessageDetail(String token, String messageId);
+//    MessageSentDetailResponseDto getSentMessageDetail(String token, String messageId);
 
 
 }

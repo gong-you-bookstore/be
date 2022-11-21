@@ -33,37 +33,37 @@ public class MessageController {
         return new ResponseEntity<>(responseService.getSimpleResult(true), HttpStatus.OK);
     }
 
-    @GetMapping("/received")
-    public ResponseEntity<ListResult<MessageReceivedSimpleResponseDto>> getAllReceivedMessages(
-            @RequestHeader("X-AUTH-TOKEN") String accessToken){
-        return new ResponseEntity<>(responseService.getListResult(messageService.getAllReceivedMessages(accessToken)), HttpStatus.OK);
-    }
-
-    @GetMapping("/received/{messageId}")
-    public ResponseEntity<SingleResult<MessageReceivedDetailResponseDto>> getReceivedMessage(
-            @RequestHeader("X-AUTH-TOKEN") String accessToken,
-            @PathVariable String messageId){
-        return new ResponseEntity<>(responseService.getSingleResult(messageService.getReceivedMessageDetail(accessToken, messageId)), HttpStatus.OK);
-    }
-
-    @GetMapping("/sent")
-    public ResponseEntity<ListResult<MessageSentSimpleResponseDto>> getAllSentMessages(
-            @RequestHeader("X-AUTH-TOKEN") String accessToken){
-        return new ResponseEntity<>(responseService.getListResult(messageService.getAllSentMessages(accessToken)), HttpStatus.OK);
-    }
-
-    @GetMapping("/sent/{messageId}")
-    public ResponseEntity<SingleResult<MessageSentDetailResponseDto>> getSentMessage(
-            @RequestHeader("X-AUTH-TOKEN") String accessToken,
-            @PathVariable String messageId){
-        return new ResponseEntity<>(responseService.getSingleResult(messageService.getSentMessageDetail(accessToken, messageId)), HttpStatus.OK);
-    }
+//    @GetMapping("/received")
+//    public ResponseEntity<ListResult<MessageReceivedSimpleResponseDto>> getAllReceivedMessages(
+//            @RequestHeader("X-AUTH-TOKEN") String accessToken){
+//        return new ResponseEntity<>(responseService.getListResult(messageService.getAllReceivedMessages(accessToken)), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/received/{messageId}")
+//    public ResponseEntity<SingleResult<MessageReceivedDetailResponseDto>> getReceivedMessage(
+//            @RequestHeader("X-AUTH-TOKEN") String accessToken,
+//            @PathVariable String messageId){
+//        return new ResponseEntity<>(responseService.getSingleResult(messageService.getReceivedMessageDetail(accessToken, messageId)), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/sent")
+//    public ResponseEntity<ListResult<MessageSentSimpleResponseDto>> getAllSentMessages(
+//            @RequestHeader("X-AUTH-TOKEN") String accessToken){
+//        return new ResponseEntity<>(responseService.getListResult(messageService.getAllSentMessages(accessToken)), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/sent/{messageId}")
+//    public ResponseEntity<SingleResult<MessageSentDetailResponseDto>> getSentMessage(
+//            @RequestHeader("X-AUTH-TOKEN") String accessToken,
+//            @PathVariable String messageId){
+//        return new ResponseEntity<>(responseService.getSingleResult(messageService.getSentMessageDetail(accessToken, messageId)), HttpStatus.OK);
+//    }
 
     @GetMapping()
     public ResponseEntity<ListResult<MessageBetweenUserResponseDto>> getMessages(
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
             @RequestBody MessageBetweenRequestDto messageBetweenRequestDto){
-        return new ResponseEntity<>(responseService.getListResult(messageFacade.getAllMessagesByShelfId(accessToken, messageBetweenRequestDto.getShelfId(), messageBetweenRequestDto.getEmail())), HttpStatus.OK);
+        return new ResponseEntity<>(responseService.getListResult(messageFacade.getAllMessagesByShelfId(accessToken, messageBetweenRequestDto.getShelfId(), messageBetweenRequestDto.getEmail1(), messageBetweenRequestDto.getEmail2())), HttpStatus.OK);
     }
 
 

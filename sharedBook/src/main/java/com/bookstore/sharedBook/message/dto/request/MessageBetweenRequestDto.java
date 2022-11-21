@@ -5,5 +5,6 @@ import lombok.Getter;
 @Getter
 public class MessageBetweenRequestDto {
     private String shelfId;
-    private String email;
+    private String email1;
+    private String email2;
 }

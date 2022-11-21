@@ -69,5 +69,9 @@ public class UserServiceImpl implements UserService{
         return user.getId().toString();
     }
 
+    @Override
+    public String getUserEmailFromUserId(String userId) {
+        return userRepository.findUserEmailByUserId(UUID.fromString(userId));
+    }
 
 }

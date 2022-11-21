@@ -14,11 +14,13 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class MessageBetweenUserResponseDto {
+    private String email;
     private String content;
     private LocalDateTime createdAt;
 
-    public static MessageBetweenUserResponseDto toMessageBetweenUserResponseDto(Message message){
+    public static MessageBetweenUserResponseDto toMessageBetweenUserResponseDto(Message message, String senderEmail){
         return MessageBetweenUserResponseDto.builder()
+                .email(senderEmail)
                 .content(message.getContent())
                 .createdAt(message.getCreatedAt())
                 .build();
