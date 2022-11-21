@@ -1,6 +1,7 @@
 package com.bookstore.sharedBook.message.facade;
 
 import com.bookstore.sharedBook.message.dto.response.MessageBetweenUserResponseDto;
+import com.bookstore.sharedBook.message.dto.response.MessageBoxResponseDto;
 import com.bookstore.sharedBook.message.entity.Message;
 import com.bookstore.sharedBook.message.repository.MessageRepositoryImpl;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
@@ -33,6 +34,19 @@ public class MessageFacadeImpl implements MessageFacade{
         for(Message message : ret){
             String senderEmail = userService.getUserEmailFromUserId(message.getSender().toString());
             res.add(MessageBetweenUserResponseDto.toMessageBetweenUserResponseDto(message, senderEmail));
+        }
+        return res;
+    }
+
+    @Override
+    public List<MessageBoxResponseDto> getAllMyMessages(String token) {
+        String userId = jwtTokenProvider.getUserIdFromToken(token);
+        String userEmail = userService.getUserEmailFromUserId(userId.toString());
+        List<Message> messages = messageRepository.findAllByReceiverId(UUID.fromString(userId));
+        List<MessageBoxResponseDto> res = new ArrayList<>();
+        for(Message message : messages){
+            String senderEmail = userService.getUserEmailFromUserId(message.getSender().toString());
+            res.add(MessageBoxResponseDto.toMessageBoxResponseDto(message, userEmail, senderEmail));
         }
         return res;
     }
