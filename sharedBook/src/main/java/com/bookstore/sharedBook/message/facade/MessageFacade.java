@@ -5,6 +5,6 @@ import com.bookstore.sharedBook.message.dto.response.MessageBetweenUserResponseD
 import java.util.List;
 
 public interface MessageFacade {
-    List<MessageBetweenUserResponseDto> getAllMessagesByShelfId(String token, String shelfId, String counterpartEmail);
+    List<MessageBetweenUserResponseDto> getAllMessagesByShelfId(String token, String shelfId, String email1, String email2);
 
 }

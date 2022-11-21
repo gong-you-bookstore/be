@@ -22,12 +22,12 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public String findUserEmail(UUID userId) {
-        List<String> res = jpaQueryFactory
+    public String findUserEmailByUserId(UUID userId) {
+        return jpaQueryFactory
                 .select(user.email)
                 .from(user)
                 .where(user.id.eq(userId))
-                .fetch();
-        return res.get(0);
+                .fetchOne();
     }
+
 }

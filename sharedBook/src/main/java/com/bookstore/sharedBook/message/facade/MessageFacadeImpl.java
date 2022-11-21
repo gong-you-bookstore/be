@@ -24,12 +24,17 @@ public class MessageFacadeImpl implements MessageFacade{
     private final MessageRepositoryImpl messageRepository;
 
     @Override
-    public List<MessageBetweenUserResponseDto> getAllMessagesByShelfId(String token, String shelfId, String counterpartEmail) {
+    public List<MessageBetweenUserResponseDto> getAllMessagesByShelfId(String token, String shelfId, String email1, String email2) {
         String userId = jwtTokenProvider.getUserIdFromToken(token);
-        String counterpartId = userService.getUserIdFromUserEmail(counterpartEmail);
-        List<Message> ret = messageRepository.findAllMessagesByShelfIdAndTwoUsers(UUID.fromString(shelfId), UUID.fromString(userId), UUID.fromString(counterpartId));
-        return ret.stream().map(MessageBetweenUserResponseDto::toMessageBetweenUserResponseDto).collect(Collectors.toList());
-
+        String email1Id = userService.getUserIdFromUserEmail(email1);
+        String email2Id = userService.getUserIdFromUserEmail(email2);
+        List<Message> ret = messageRepository.findAllMessagesByShelfIdAndTwoUsers(UUID.fromString(shelfId), UUID.fromString(email1Id), UUID.fromString(email2Id));
+        List<MessageBetweenUserResponseDto> res = new ArrayList<>();
+        for(Message message : ret){
+            String senderEmail = userService.getUserEmailFromUserId(message.getSender().toString());
+            res.add(MessageBetweenUserResponseDto.toMessageBetweenUserResponseDto(message, senderEmail));
+        }
+        return res;
     }
 
 }
