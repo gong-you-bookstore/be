@@ -5,8 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum BookStatus {
+public enum ShelfStatus {
     UNSOLD("UNSOLD"),
+    PENDING("PENDING"),
     SOLD("SOLD"),
     READ("READ");
 

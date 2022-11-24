@@ -41,4 +41,13 @@ public class ShelfRepositoryImpl implements ShelfRepository{
                 .fetch();
         return ret.get(0);
     }
+
+    @Override
+    public long patchShelfStatus(UUID shelfId, String status) {
+        return jpaQueryFactory
+                .update(shelf)
+                .set(shelf.status, status)
+                .where(shelf.id.eq(shelfId))
+                .execute();
+    }
 }

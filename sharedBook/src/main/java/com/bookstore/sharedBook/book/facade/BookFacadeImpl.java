@@ -1,13 +1,16 @@
 package com.bookstore.sharedBook.book.facade;
 
+import com.bookstore.sharedBook.book.dto.request.PatchShelfStatusRequestDto;
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
 import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfDetailResponseDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfResponseDto;
 import com.bookstore.sharedBook.book.entity.Shelf;
+import com.bookstore.sharedBook.book.entity.ShelfStatus;
 import com.bookstore.sharedBook.book.repository.BookRepositoryImpl;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
 import com.bookstore.sharedBook.book.service.ShelfServiceImpl;
+import com.bookstore.sharedBook.config.exception.CustomException;
 import com.bookstore.sharedBook.file.service.FileServiceImpl;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -48,5 +51,22 @@ public class BookFacadeImpl implements BookFacade{
         List<String> fileNameList = fileService.getFileIdsByShelfId(shelf.getId().toString());
         return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileNameList);
     }
+
+    @Override
+    public void tradeRequest(String token, PatchShelfStatusRequestDto patchShelfStatusRequestDto) {
+        String userId = jwtTokenProvider.getUserIdFromToken(token);
+        shelfService.patchShelfStatus(patchShelfStatusRequestDto.getShelfId(), patchShelfStatusRequestDto.getRequest());
+//        if (patchShelfStatusRequestDto.getRequest().equals(ShelfStatus.PENDING)){
+//
+//        }else{
+//            throw new CustomException(()->)
+//        }
+    }
+
+    @Override
+    public void tradeResponse(String token, PatchShelfStatusRequestDto patchShelfStatusRequestDto) {
+        String userId = jwtTokenProvider.getUserIdFromToken(token);
+    }
+
 
 }
