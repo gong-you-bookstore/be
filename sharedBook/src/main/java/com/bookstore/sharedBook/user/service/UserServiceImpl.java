@@ -74,4 +74,16 @@ public class UserServiceImpl implements UserService{
         return userRepository.findUserEmailByUserId(UUID.fromString(userId));
     }
 
+    @Override
+    public void updateToken(String userId, Integer token, boolean consumed) {
+        Integer originalToken = userRepository.getUserToken(UUID.fromString(userId));
+        int totalToken;
+        if(consumed){
+            totalToken = originalToken - token;
+        }else{
+            totalToken = originalToken + token;
+        }
+        userRepository.updateUserToken(UUID.fromString(userId), totalToken);
+    }
+
 }

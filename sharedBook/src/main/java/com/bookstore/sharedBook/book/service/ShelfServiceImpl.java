@@ -53,4 +53,9 @@ public class ShelfServiceImpl implements ShelfService{
     public void patchShelfStatus(String shelfId, String status) {
         shelfRepository.patchShelfStatus(UUID.fromString(shelfId), status);
     }
+
+    @Override
+    public Integer getTokenFromShelf(String shelfId) {
+        return shelfRepository.getTokenFromShelf(UUID.fromString(shelfId));
+    }
 }

@@ -14,4 +14,5 @@ public interface UserService {
     void updateSurveyInfo(String userId, SaveSurveyRequestDto saveSurveyRequestDto);
     String getUserIdFromUserEmail(String email);
     String getUserEmailFromUserId(String userId);
+    void updateToken(String userId, Integer token, boolean consumed);
 }

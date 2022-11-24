@@ -2,10 +2,6 @@ package com.bookstore.sharedBook.message.service;
 
 import com.bookstore.sharedBook.config.exception.CustomException;
 import com.bookstore.sharedBook.message.dto.request.MessageRequestDto;
-import com.bookstore.sharedBook.message.dto.response.MessageReceivedDetailResponseDto;
-import com.bookstore.sharedBook.message.dto.response.MessageReceivedSimpleResponseDto;
-import com.bookstore.sharedBook.message.dto.response.MessageSentDetailResponseDto;
-import com.bookstore.sharedBook.message.dto.response.MessageSentSimpleResponseDto;
 import com.bookstore.sharedBook.message.entity.Message;
 import com.bookstore.sharedBook.message.repository.MessageRepositoryImpl;
 import com.bookstore.sharedBook.user.entity.User;
@@ -15,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static com.bookstore.sharedBook.config.exception.ErrorCode.*;
@@ -39,6 +33,36 @@ public class MessageServiceImpl implements MessageService{
                 .sender(UUID.fromString(senderId))
                 .receiver(receiver.getId())
                 .content(messageRequestDto.getContent())
+                .build();
+
+        messageRepository.save(message);
+    }
+
+    @Override
+    public void sendRequestTransactionMessage(String token, String shelfId, String receiverEmail) {
+        String senderId = jwtTokenProvider.getUserIdFromToken(token);
+        User receiver = userRepository.findUserByEmail(receiverEmail).orElseThrow(()->new CustomException(RECEIVER_NOT_FOUND));
+
+        Message message = Message.builder()
+                .shelfId(UUID.fromString(shelfId))
+                .sender(UUID.fromString(senderId))
+                .receiver(receiver.getId())
+                .content("도서 거래를 요청합니다.")
+                .build();
+
+        messageRepository.save(message);
+    }
+
+    @Override
+    public void sendRespondTransactionMessage(String token, String shelfId, String receiverEmail) {
+        String senderId = jwtTokenProvider.getUserIdFromToken(token);
+        User receiver = userRepository.findUserByEmail(receiverEmail).orElseThrow(()->new CustomException(RECEIVER_NOT_FOUND));
+
+        Message message = Message.builder()
+                .shelfId(UUID.fromString(shelfId))
+                .sender(UUID.fromString(senderId))
+                .receiver(receiver.getId())
+                .content("도서 거래를 수락합니다.")
                 .build();
 
         messageRepository.save(message);

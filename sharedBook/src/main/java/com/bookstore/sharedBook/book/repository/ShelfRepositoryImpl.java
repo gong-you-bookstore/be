@@ -50,4 +50,13 @@ public class ShelfRepositoryImpl implements ShelfRepository{
                 .where(shelf.id.eq(shelfId))
                 .execute();
     }
+
+    @Override
+    public Integer getTokenFromShelf(UUID shelfId) {
+        return jpaQueryFactory
+                .select(shelf.token)
+                .from(shelf)
+                .where(shelf.id.eq(shelfId))
+                .fetchOne();
+    }
 }
