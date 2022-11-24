@@ -1,15 +1,15 @@
 package com.bookstore.sharedBook.book.controller;
 
+import com.bookstore.sharedBook.book.dto.request.RequestTransactionDto;
+import com.bookstore.sharedBook.book.dto.request.RespondTransactionDto;
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
 import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
 import com.bookstore.sharedBook.book.dto.response.*;
 import com.bookstore.sharedBook.book.facade.BookFacadeImpl;
+import com.bookstore.sharedBook.book.facade.TransactionFacadeImpl;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
 import com.bookstore.sharedBook.book.service.ShelfServiceImpl;
-import com.bookstore.sharedBook.common.CommonResult;
-import com.bookstore.sharedBook.common.ListResult;
-import com.bookstore.sharedBook.common.ResponseService;
-import com.bookstore.sharedBook.common.SingleResult;
+import com.bookstore.sharedBook.common.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,6 +27,7 @@ public class BookController {
     private final BookServiceImpl bookService;
     private final ShelfServiceImpl shelfService;
     private final BookFacadeImpl bookFacade;
+    private final TransactionFacadeImpl transactionFacade;
     private final ResponseService responseService;
 
     @PostMapping
@@ -54,6 +55,22 @@ public class BookController {
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
             @RequestBody ShelfDetailRequestDto shelfDetailRequestDto){
         return new ResponseEntity<>(responseService.getSingleResult(bookFacade.getShelf(accessToken, shelfDetailRequestDto)), HttpStatus.OK);
+    }
+
+    @PostMapping("/trade/request")
+    public ResponseEntity<CommonResult> requestTransaction(
+            @RequestHeader("X-AUTH-TOKEN") String accessToken,
+            @RequestBody RequestTransactionDto requestTransactionDto){
+        transactionFacade.requestTransaction(accessToken, requestTransactionDto);
+        return new ResponseEntity<>(responseService.getSimpleResult(true), HttpStatus.OK);
+    }
+
+    @PostMapping("/trade/respond")
+    public ResponseEntity<CommonResult> respondTransaction(
+            @RequestHeader("X-AUTH-TOKEN") String accessToken,
+            @RequestBody RespondTransactionDto respondTransactionDto){
+        transactionFacade.acceptTransaction(accessToken, respondTransactionDto);
+        return new ResponseEntity<>(responseService.getSimpleResult(true), HttpStatus.OK);
     }
 
 //    @GetMapping("/my")

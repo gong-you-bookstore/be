@@ -13,4 +13,5 @@ public interface ShelfService {
     List<String> getUserEmailsByIsbn(Long isbn);
     Shelf getShelf(ShelfDetailRequestDto shelfDetailRequestDto);
     void patchShelfStatus(String shelfId, String status);
+    Integer getTokenFromShelf(String shelfId);
 }

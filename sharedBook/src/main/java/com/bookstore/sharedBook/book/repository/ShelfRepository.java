@@ -11,4 +11,5 @@ public interface ShelfRepository {
     List<String> getUserEmailsByIsbn(Long isbn);
     Shelf getShelf(Long isbn, UUID userId);
     long patchShelfStatus(UUID shelfId, String status);
+    Integer getTokenFromShelf(UUID shelfId);
 }

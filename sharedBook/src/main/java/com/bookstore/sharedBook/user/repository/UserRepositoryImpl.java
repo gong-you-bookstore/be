@@ -30,4 +30,23 @@ public class UserRepositoryImpl implements UserRepository{
                 .fetchOne();
     }
 
+    @Override
+    public Integer getUserToken(UUID userId) {
+        return jpaQueryFactory
+                .select(user.token)
+                .from(user)
+                .where(user.id.eq(userId))
+                .fetchOne();
+    }
+
+    @Override
+    public long updateUserToken(UUID userId, Integer token) {
+        return jpaQueryFactory
+                .update(user)
+                .set(user.token, token)
+                .where(user.id.eq(userId))
+                .execute();
+
+    }
+
 }

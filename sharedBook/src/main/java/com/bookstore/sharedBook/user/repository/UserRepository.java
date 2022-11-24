@@ -8,5 +8,7 @@ import java.util.UUID;
 public interface UserRepository {
     Optional<User> findUserByEmail(String email);
     String findUserEmailByUserId(UUID userId);
+    Integer getUserToken(UUID userId);
+    long updateUserToken(UUID userId, Integer token);
 
 }
