@@ -1,5 +1,6 @@
 package com.bookstore.sharedBook.book.facade;
 
+import com.bookstore.sharedBook.book.dto.request.PatchShelfStatusRequestDto;
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
 import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfDetailResponseDto;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface BookFacade {
     ShelfResponseDto save(String token, SaveBookRequestDto saveBookRequestDto, List<MultipartFile> multipartFileList);
     ShelfDetailResponseDto getShelf(String token, ShelfDetailRequestDto shelfDetailRequestDto);
+    void tradeRequest(String token, PatchShelfStatusRequestDto patchShelfStatusRequestDto);
+    void tradeResponse(String token, PatchShelfStatusRequestDto patchShelfStatusRequestDto);
 }

@@ -3,23 +3,16 @@ package com.bookstore.sharedBook.book.service;
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
 import com.bookstore.sharedBook.book.dto.response.BookDetailResponseDto;
 import com.bookstore.sharedBook.book.dto.response.BookResponseDto;
-import com.bookstore.sharedBook.book.dto.response.ShelfResponseDto;
 import com.bookstore.sharedBook.book.entity.Book;
-import com.bookstore.sharedBook.book.entity.BookStatus;
-import com.bookstore.sharedBook.book.entity.Shelf;
 import com.bookstore.sharedBook.book.repository.BookRepositoryImpl;
-import com.bookstore.sharedBook.book.repository.ShelfRepositoryImpl;
 import com.bookstore.sharedBook.config.exception.CustomException;
-import com.bookstore.sharedBook.file.service.FileServiceImpl;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.bookstore.sharedBook.config.exception.ErrorCode.BOOK_NOT_FOUND;
