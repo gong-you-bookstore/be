@@ -1,5 +1,6 @@
 package com.bookstore.sharedBook.book.service;
 
+import com.bookstore.sharedBook.book.dto.request.PatchShelfStatusRequestDto;
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
 import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfDetailResponseDto;
@@ -37,7 +38,7 @@ public class ShelfServiceImpl implements ShelfService{
     public List<String> getUserEmailsByIsbn(Long isbn) {
         List<String> res = new ArrayList<>();
         for(String email : shelfRepository.getUserEmailsByIsbn(isbn)){
-            res.add(email.split("@")[0]);
+            res.add(email);
         }
         return res;
     }
@@ -46,5 +47,10 @@ public class ShelfServiceImpl implements ShelfService{
     public Shelf getShelf(ShelfDetailRequestDto shelfDetailRequestDto) {
         return shelfRepository.getShelf(shelfDetailRequestDto.getIsbn(), UUID.fromString(shelfDetailRequestDto.getUserId()));
 
+    }
+
+    @Override
+    public void patchShelfStatus(String shelfId, String status) {
+        shelfRepository.patchShelfStatus(UUID.fromString(shelfId), status);
     }
 }
