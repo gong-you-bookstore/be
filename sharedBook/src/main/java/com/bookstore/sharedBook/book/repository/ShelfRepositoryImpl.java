@@ -42,6 +42,14 @@ public class ShelfRepositoryImpl implements ShelfRepository{
     }
 
     @Override
+    public List<Shelf> getShelfByUserId(UUID userId) {
+        return jpaQueryFactory
+                .selectFrom(shelf)
+                .where(shelf.userId.eq(userId))
+                .fetch();
+    }
+
+    @Override
     public long patchShelfStatus(UUID shelfId, String status) {
         return jpaQueryFactory
                 .update(shelf)

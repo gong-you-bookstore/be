@@ -73,11 +73,11 @@ public class BookController {
         return new ResponseEntity<>(responseService.getSimpleResult(true), HttpStatus.OK);
     }
 
-//    @GetMapping("/my")
-//    public ResponseEntity<ListResult<BookResponseDto>> getAllSavedBooksByUser(
-//            @RequestHeader("X-AUTH-TOKEN") String accessToken){
-//        return new ResponseEntity<>(responseService.getListResult(bookService.getAllSavedBooksByUser(accessToken)), HttpStatus.OK);
-//    }
+    @GetMapping("/my")
+    public ResponseEntity<ListResult<BookResponseDto>> getAllSavedBooksByUser(
+            @RequestHeader("X-AUTH-TOKEN") String accessToken){
+        return new ResponseEntity<>(responseService.getListResult(bookFacade.getBookByUserId(accessToken)), HttpStatus.OK);
+    }
 
 //    @DeleteMapping
 //    public ResponseEntity<CommonResult> deleteBook(

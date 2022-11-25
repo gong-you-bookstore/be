@@ -3,8 +3,11 @@ package com.bookstore.sharedBook.book.facade;
 import com.bookstore.sharedBook.book.dto.request.PatchShelfStatusRequestDto;
 import com.bookstore.sharedBook.book.dto.request.SaveBookRequestDto;
 import com.bookstore.sharedBook.book.dto.request.ShelfDetailRequestDto;
+import com.bookstore.sharedBook.book.dto.response.BookDetailResponseDto;
+import com.bookstore.sharedBook.book.dto.response.BookResponseDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfDetailResponseDto;
 import com.bookstore.sharedBook.book.dto.response.ShelfResponseDto;
+import com.bookstore.sharedBook.book.entity.Book;
 import com.bookstore.sharedBook.book.entity.Shelf;
 import com.bookstore.sharedBook.book.entity.ShelfStatus;
 import com.bookstore.sharedBook.book.repository.BookRepositoryImpl;
@@ -19,6 +22,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,6 +57,30 @@ public class BookFacadeImpl implements BookFacade{
         Shelf shelf = shelfService.getShelf(isbn, userService.getUserIdFromUserEmail(userEmail));
         List<String> fileNameList = fileService.getFileIdsByShelfId(shelf.getId().toString());
         return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileNameList);
+    }
+
+    @Override
+    public List<BookResponseDto> getBookByUserId(String token) {
+        String userId = jwtTokenProvider.getUserIdFromToken(token);
+        List<Shelf> shelves = shelfService.getShelfByUserId(userId);
+        List<Long> isbnList = new ArrayList<>();
+        List<BookResponseDto> res = new ArrayList<>();
+        for(Shelf shelf : shelves){
+            if(!isbnList.contains(shelf.getIsbn())){
+                isbnList.add(shelf.getIsbn());
+            }
+        }
+        for(Long isbn:isbnList){
+            BookDetailResponseDto bookDetail = bookService.getBookById(isbn);
+            BookResponseDto responseDto = BookResponseDto.builder()
+                    .isbn(bookDetail.getIsbn())
+                    .title(bookDetail.getTitle())
+                    .kdc(bookDetail.getKdc())
+                    .thumbnail(bookDetail.getThumbnail())
+                    .build();
+            res.add(responseDto);
+        }
+        return res;
     }
 
     @Override
