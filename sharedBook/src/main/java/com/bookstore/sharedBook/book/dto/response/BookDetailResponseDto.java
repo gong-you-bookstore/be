@@ -15,6 +15,7 @@ import java.util.UUID;
 @Builder
 @Getter
 public class BookDetailResponseDto {
+    private Long isbn;
     private String title;
     private String author;
     private String content;
@@ -27,6 +28,7 @@ public class BookDetailResponseDto {
 
     public static BookDetailResponseDto toBookDetailResponseDto(Book book, List<String> userList){
         return BookDetailResponseDto.builder()
+                .isbn(book.getIsbn())
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .content(book.getContent())
