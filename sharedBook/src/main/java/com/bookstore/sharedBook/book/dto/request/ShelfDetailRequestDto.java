@@ -7,5 +7,5 @@ import java.util.List;
 @Getter
 public class ShelfDetailRequestDto {
     private Long isbn;
-    private String userId;
+    private String userEmail;
 }

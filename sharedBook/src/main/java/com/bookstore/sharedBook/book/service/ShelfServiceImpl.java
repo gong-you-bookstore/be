@@ -44,8 +44,8 @@ public class ShelfServiceImpl implements ShelfService{
     }
 
     @Override
-    public Shelf getShelf(ShelfDetailRequestDto shelfDetailRequestDto) {
-        return shelfRepository.getShelf(shelfDetailRequestDto.getIsbn(), UUID.fromString(shelfDetailRequestDto.getUserId()));
+    public Shelf getShelf(Long isbn, String userId) {
+        return shelfRepository.getShelf(isbn, UUID.fromString(userId));
 
     }
 
