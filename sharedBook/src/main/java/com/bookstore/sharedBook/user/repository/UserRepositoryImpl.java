@@ -49,4 +49,9 @@ public class UserRepositoryImpl implements UserRepository{
 
     }
 
+    @Override
+    public Optional<User> findUserById(UUID userId) {
+        return userJpaRepository.findUserById(userId);
+    }
+
 }

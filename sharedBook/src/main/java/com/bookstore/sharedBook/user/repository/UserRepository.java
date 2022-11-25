@@ -10,5 +10,6 @@ public interface UserRepository {
     String findUserEmailByUserId(UUID userId);
     Integer getUserToken(UUID userId);
     long updateUserToken(UUID userId, Integer token);
+    Optional<User> findUserById(UUID userId);
 
 }
