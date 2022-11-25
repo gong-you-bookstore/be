@@ -9,6 +9,7 @@ import java.util.UUID;
 public interface BookRepository {
     Book save(Book book);
     List<Book> findAll();
+    List<Book> findAllByKdc(String kdc);
     //List<Book> findAllBooksByUserId(String userId);
     Optional<Book> findBookById(Long isbn);
     //long patchBookStatus(Long isbn, UUID userId, String status);

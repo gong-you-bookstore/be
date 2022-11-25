@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,22 @@ public class BookServiceImpl implements BookService{
                 .map(BookResponseDto::toBookResponseDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<BookResponseDto> getAllBooksByGenre(List<String> genreList) {
+        List<BookResponseDto> res = new ArrayList<>();
+        for(String genre : genreList){
+            List<Book> bookList = bookRepository.findAllByKdc(genre);
+            if (!bookList.isEmpty()){
+                res.addAll(bookList.stream()
+                        .map(BookResponseDto::toBookResponseDto)
+                        .collect(Collectors.toList()));
+            }
+
+        }
+        return res;
+    }
+
 
 //    @Override
 //    public List<BookResponseDto> getAllSavedBooksByUser(String token) {
