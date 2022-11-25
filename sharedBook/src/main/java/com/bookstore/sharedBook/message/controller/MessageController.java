@@ -33,11 +33,13 @@ public class MessageController {
         return new ResponseEntity<>(responseService.getSimpleResult(true), HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping("/{shelfId}")
     public ResponseEntity<ListResult<MessageBetweenUserResponseDto>> getMessages(
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
-            @RequestBody MessageBetweenRequestDto messageBetweenRequestDto){
-        return new ResponseEntity<>(responseService.getListResult(messageFacade.getAllMessagesByShelfId(accessToken, messageBetweenRequestDto.getShelfId(), messageBetweenRequestDto.getEmail1(), messageBetweenRequestDto.getEmail2())), HttpStatus.OK);
+            @PathVariable String shelfId,
+            @RequestParam String email1,
+            @RequestParam String email2){
+        return new ResponseEntity<>(responseService.getListResult(messageFacade.getAllMessagesByShelfId(accessToken, shelfId, email1, email2)), HttpStatus.OK);
     }
 
     @GetMapping("/box")
