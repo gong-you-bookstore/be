@@ -35,11 +35,10 @@ public class ShelfRepositoryImpl implements ShelfRepository{
 
     @Override
     public Shelf getShelf(Long isbn, UUID userId) {
-        List<Shelf> ret = jpaQueryFactory
+        return jpaQueryFactory
                 .selectFrom(shelf)
                 .where(shelf.isbn.eq(isbn), shelf.userId.eq(userId))
-                .fetch();
-        return ret.get(0);
+                .fetchOne();
     }
 
     @Override

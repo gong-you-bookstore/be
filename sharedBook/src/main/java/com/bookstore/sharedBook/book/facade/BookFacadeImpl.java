@@ -47,10 +47,9 @@ public class BookFacadeImpl implements BookFacade{
     }
 
     @Override
-    public ShelfDetailResponseDto getShelf(String token, ShelfDetailRequestDto shelfDetailRequestDto) {
+    public ShelfDetailResponseDto getShelf(String token, Long isbn, String userEmail) {
         String userId = jwtTokenProvider.getUserIdFromToken(token);
-        String userEmailFromShelf = shelfDetailRequestDto.getUserEmail();
-        Shelf shelf = shelfService.getShelf(shelfDetailRequestDto.getIsbn(), userService.getUserIdFromUserEmail(userEmailFromShelf));
+        Shelf shelf = shelfService.getShelf(isbn, userService.getUserIdFromUserEmail(userEmail));
         List<String> fileNameList = fileService.getFileIdsByShelfId(shelf.getId().toString());
         return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileNameList);
     }

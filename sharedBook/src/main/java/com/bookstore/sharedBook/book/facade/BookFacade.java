@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface BookFacade {
     ShelfResponseDto save(String token, SaveBookRequestDto saveBookRequestDto, List<MultipartFile> multipartFileList);
-    ShelfDetailResponseDto getShelf(String token, ShelfDetailRequestDto shelfDetailRequestDto);
+    ShelfDetailResponseDto getShelf(String token, Long isbn, String userEmail);
     void tradeRequest(String token, PatchShelfStatusRequestDto patchShelfStatusRequestDto);
     void tradeResponse(String token, PatchShelfStatusRequestDto patchShelfStatusRequestDto);
 }
