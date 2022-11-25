@@ -1,5 +1,7 @@
 package com.bookstore.sharedBook.user.jwt;
 
+import com.bookstore.sharedBook.config.exception.CustomException;
+import com.bookstore.sharedBook.config.exception.ErrorCode;
 import com.bookstore.sharedBook.user.repository.UserJpaRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -28,6 +30,7 @@ public class JwtTokenProvider {
     @Value("${secret.access}")
     private String SECRET_KEY;
     private final long accessTokenValidTime = 60 * 60 * 24 * 1000L;
+    //private final long accessTokenValidTime = 60*1*1*1000L;
     private Key key;
     private UserJpaRepository userJpaRepository;
 
