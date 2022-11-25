@@ -13,6 +13,7 @@ import com.bookstore.sharedBook.book.service.ShelfServiceImpl;
 import com.bookstore.sharedBook.config.exception.CustomException;
 import com.bookstore.sharedBook.file.service.FileServiceImpl;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
+import com.bookstore.sharedBook.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,7 @@ public class BookFacadeImpl implements BookFacade{
     private final JwtTokenProvider jwtTokenProvider;
     private final BookServiceImpl bookService;
     private final ShelfServiceImpl shelfService;
+    private final UserServiceImpl userService;
     private final FileServiceImpl fileService;
     private final BookRepositoryImpl bookRepository;
 
@@ -47,7 +49,8 @@ public class BookFacadeImpl implements BookFacade{
     @Override
     public ShelfDetailResponseDto getShelf(String token, ShelfDetailRequestDto shelfDetailRequestDto) {
         String userId = jwtTokenProvider.getUserIdFromToken(token);
-        Shelf shelf = shelfService.getShelf(shelfDetailRequestDto);
+        String userEmailFromShelf = shelfDetailRequestDto.getUserEmail();
+        Shelf shelf = shelfService.getShelf(shelfDetailRequestDto.getIsbn(), userService.getUserIdFromUserEmail(userEmailFromShelf));
         List<String> fileNameList = fileService.getFileIdsByShelfId(shelf.getId().toString());
         return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileNameList);
     }
