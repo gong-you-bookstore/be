@@ -28,7 +28,7 @@ public class MainController {
 
     @GetMapping("/genre")
     public ResponseEntity<ListResult<BookResponseDto>> getAllBooksByKdc(
-            @RequestBody BookGenreRequestDto bookGenreRequestDto){
-        return new ResponseEntity<>(responseService.getListResult(bookService.getAllBooksByGenre(bookGenreRequestDto.getGenre())), HttpStatus.OK);
+            @RequestParam List<String> kdc){
+        return new ResponseEntity<>(responseService.getListResult(bookService.getAllBooksByGenre(kdc)), HttpStatus.OK);
     }
 }
