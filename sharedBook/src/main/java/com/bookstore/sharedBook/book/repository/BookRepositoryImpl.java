@@ -30,6 +30,14 @@ public class BookRepositoryImpl implements BookRepository{
         return bookJpaRepository.findAll();
     }
 
+    @Override
+    public List<Book> findAllByKdc(String kdc) {
+        return jpaQueryFactory
+                .selectFrom(book)
+                .where(book.kdc.eq(kdc))
+                .fetch();
+    }
+
 
     @Override
     public Optional<Book> findBookById(Long isbn) {

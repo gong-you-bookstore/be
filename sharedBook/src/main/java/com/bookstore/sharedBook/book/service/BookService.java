@@ -11,7 +11,8 @@ import java.util.List;
 public interface BookService {
     BookResponseDto save(String token, SaveBookRequestDto saveBookRequestDto);
     List<BookResponseDto> getAllBooks();
-    //List<BookResponseDto> getAllSavedBooksByUser(String token);
+    List<BookResponseDto> getAllBooksByGenre(List<String> genreList);
+
     BookDetailResponseDto getBookById(Long isbn);
     //void patchBookStatus(String token, Long isbn, String status);
     //boolean delete(String token, String bookId);
