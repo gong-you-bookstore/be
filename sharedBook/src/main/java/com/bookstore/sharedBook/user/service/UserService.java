@@ -5,6 +5,7 @@ import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
 import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
 import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
 import com.bookstore.sharedBook.user.dto.response.SignUpResponseDto;
+import com.bookstore.sharedBook.user.dto.response.UserInfoResponseDto;
 
 import java.util.UUID;
 
@@ -15,4 +16,5 @@ public interface UserService {
     String getUserIdFromUserEmail(String email);
     String getUserEmailFromUserId(String userId);
     void updateToken(String userId, Integer token, boolean consumed);
+    UserInfoResponseDto getUserInfo(String accessToken);
 }

@@ -6,6 +6,7 @@ import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
 import com.bookstore.sharedBook.user.dto.request.SignUpRequestDto;
 import com.bookstore.sharedBook.user.dto.response.SignInResponseDto;
 import com.bookstore.sharedBook.user.dto.response.SignUpResponseDto;
+import com.bookstore.sharedBook.user.dto.response.UserInfoResponseDto;
 import com.bookstore.sharedBook.user.entity.Gender;
 import com.bookstore.sharedBook.user.entity.User;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
@@ -84,6 +85,13 @@ public class UserServiceImpl implements UserService{
             totalToken = originalToken + token;
         }
         userRepository.updateUserToken(UUID.fromString(userId), totalToken);
+    }
+
+    @Override
+    public UserInfoResponseDto getUserInfo(String accessToken) {
+        String userId = jwtTokenProvider.getUserIdFromToken(accessToken);
+        User user = userRepository.findUserById(UUID.fromString(userId)).orElseThrow(()-> new CustomException(USER_NOT_FOUND));
+        return UserInfoResponseDto.toUserInfoResponseDto(user);
     }
 
 }
