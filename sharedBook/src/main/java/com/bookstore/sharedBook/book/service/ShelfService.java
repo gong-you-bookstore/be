@@ -12,6 +12,7 @@ public interface ShelfService {
     Shelf save(String userId, SaveBookRequestDto saveBookRequestDto);
     List<String> getUserEmailsByIsbn(Long isbn);
     Shelf getShelf(Long isbn, String userId);
+    List<Shelf> getShelfByUserId(String userId);
     void patchShelfStatus(String shelfId, String status);
     Integer getTokenFromShelf(String shelfId);
 }

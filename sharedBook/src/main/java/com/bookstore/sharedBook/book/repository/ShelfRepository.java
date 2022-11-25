@@ -10,6 +10,7 @@ public interface ShelfRepository {
     Shelf save(Shelf shelf);
     List<String> getUserEmailsByIsbn(Long isbn);
     Shelf getShelf(Long isbn, UUID userId);
+    List<Shelf> getShelfByUserId(UUID userId);
     long patchShelfStatus(UUID shelfId, String status);
     Integer getTokenFromShelf(UUID shelfId);
 }

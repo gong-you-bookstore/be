@@ -50,6 +50,11 @@ public class ShelfServiceImpl implements ShelfService{
     }
 
     @Override
+    public List<Shelf> getShelfByUserId(String userId) {
+        return shelfRepository.getShelfByUserId(UUID.fromString(userId));
+    }
+
+    @Override
     public void patchShelfStatus(String shelfId, String status) {
         shelfRepository.patchShelfStatus(UUID.fromString(shelfId), status);
     }
