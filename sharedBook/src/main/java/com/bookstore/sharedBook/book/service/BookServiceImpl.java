@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService{
     public List<BookResponseDto> getAllBooksByGenre(List<String> genreList) {
         List<BookResponseDto> res = new ArrayList<>();
         for(String genre : genreList){
-            List<Book> bookList = bookRepository.findAllByKdc(genre);
+            List<Book> bookList = bookRepository.findAllByKdc(genre.substring(0,1));
             if (!bookList.isEmpty()){
                 res.addAll(bookList.stream()
                         .map(BookResponseDto::toBookResponseDto)

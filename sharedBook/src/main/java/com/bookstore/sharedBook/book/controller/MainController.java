@@ -1,6 +1,5 @@
 package com.bookstore.sharedBook.book.controller;
 
-import com.bookstore.sharedBook.book.dto.request.BookGenreRequestDto;
 import com.bookstore.sharedBook.book.dto.response.BookResponseDto;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
 import com.bookstore.sharedBook.common.ListResult;

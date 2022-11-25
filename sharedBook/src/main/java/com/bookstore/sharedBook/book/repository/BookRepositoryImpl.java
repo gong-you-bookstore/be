@@ -34,7 +34,7 @@ public class BookRepositoryImpl implements BookRepository{
     public List<Book> findAllByKdc(String kdc) {
         return jpaQueryFactory
                 .selectFrom(book)
-                .where(book.kdc.eq(kdc))
+                .where(book.kdc.startsWith(kdc))
                 .fetch();
     }
 
