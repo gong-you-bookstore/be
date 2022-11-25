@@ -53,8 +53,8 @@ public class BookController {
     @GetMapping("/shelf")
     public ResponseEntity<SingleResult<ShelfDetailResponseDto>> getShelfDetail(
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
-            @RequestBody ShelfDetailRequestDto shelfDetailRequestDto){
-        return new ResponseEntity<>(responseService.getSingleResult(bookFacade.getShelf(accessToken, shelfDetailRequestDto)), HttpStatus.OK);
+            @RequestParam Long isbn, @RequestParam String userEmail){
+        return new ResponseEntity<>(responseService.getSingleResult(bookFacade.getShelf(accessToken, isbn, userEmail)), HttpStatus.OK);
     }
 
     @PostMapping("/trade/request")
