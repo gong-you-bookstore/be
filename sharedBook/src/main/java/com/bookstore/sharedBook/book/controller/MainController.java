@@ -1,6 +1,5 @@
 package com.bookstore.sharedBook.book.controller;
 
-import com.bookstore.sharedBook.book.dto.request.BookGenreRequestDto;
 import com.bookstore.sharedBook.book.dto.response.BookResponseDto;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
 import com.bookstore.sharedBook.common.ListResult;
@@ -28,7 +27,7 @@ public class MainController {
 
     @GetMapping("/genre")
     public ResponseEntity<ListResult<BookResponseDto>> getAllBooksByKdc(
-            @RequestBody BookGenreRequestDto bookGenreRequestDto){
-        return new ResponseEntity<>(responseService.getListResult(bookService.getAllBooksByGenre(bookGenreRequestDto.getGenre())), HttpStatus.OK);
+            @RequestParam List<String> kdc){
+        return new ResponseEntity<>(responseService.getListResult(bookService.getAllBooksByGenre(kdc)), HttpStatus.OK);
     }
 }
