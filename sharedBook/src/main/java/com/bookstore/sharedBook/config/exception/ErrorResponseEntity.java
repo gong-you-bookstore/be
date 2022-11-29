@@ -2,6 +2,7 @@ package com.bookstore.sharedBook.config.exception;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Data
@@ -20,5 +21,15 @@ public class ErrorResponseEntity {
                         .msg(e.getMessage())
                         .build()
                 );
+    }
+
+    public static ResponseEntity<ErrorResponseEntity> toValidResponseEntity(String msg){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponseEntity.builder()
+                        .success(false)
+                        .code(404)
+                        .msg(msg)
+                        .build());
     }
 }
