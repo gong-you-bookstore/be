@@ -28,7 +28,7 @@ public class ErrorResponseEntity {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(ErrorResponseEntity.builder()
                         .success(false)
-                        .code(404)
+                        .code(400)
                         .msg(msg)
                         .build());
     }

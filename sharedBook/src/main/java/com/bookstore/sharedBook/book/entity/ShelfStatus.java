@@ -9,6 +9,7 @@ public enum ShelfStatus {
     UNSOLD("UNSOLD"),
     PENDING("PENDING"),
     SOLD("SOLD"),
+    SHARE("SHARE"),
     READ("READ");
 
     private final String state;

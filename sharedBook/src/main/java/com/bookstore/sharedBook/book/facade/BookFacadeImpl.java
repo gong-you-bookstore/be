@@ -18,6 +18,7 @@ import com.bookstore.sharedBook.file.service.FileServiceImpl;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
 import com.bookstore.sharedBook.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,7 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class BookFacadeImpl implements BookFacade{
     private final JwtTokenProvider jwtTokenProvider;
     private final BookServiceImpl bookService;
