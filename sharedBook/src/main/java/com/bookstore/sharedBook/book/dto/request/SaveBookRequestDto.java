@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -18,6 +19,6 @@ public class SaveBookRequestDto {
     private Integer price;
     private String status;
     private Integer token;
-    private Long latitude;
-    private Long longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 }

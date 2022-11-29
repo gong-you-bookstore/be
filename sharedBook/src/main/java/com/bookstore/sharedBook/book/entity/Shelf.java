@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +24,8 @@ public class Shelf extends BaseEntity {
     private String status;
     @ColumnDefault("3")
     private Integer token;
-    private Long latitude;
-    private Long longitude;
+    @Column(precision=10, scale=7)
+    private BigDecimal latitude;
+    @Column(precision=10, scale=7)
+    private BigDecimal longitude;
 }
