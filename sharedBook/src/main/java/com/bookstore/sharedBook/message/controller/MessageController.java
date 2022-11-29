@@ -9,11 +9,14 @@ import com.bookstore.sharedBook.message.dto.request.MessageRequestDto;
 import com.bookstore.sharedBook.message.dto.response.*;
 import com.bookstore.sharedBook.message.facade.MessageFacadeImpl;
 import com.bookstore.sharedBook.message.service.MessageServiceImpl;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -28,7 +31,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<CommonResult> sendMessage(
             @RequestHeader("X-AUTH-TOKEN") String accessToken,
-            @RequestBody MessageRequestDto messageRequestDto){
+            @Valid @RequestBody MessageRequestDto messageRequestDto){
         messageService.send(accessToken, messageRequestDto);
         return new ResponseEntity<>(responseService.getSimpleResult(true), HttpStatus.OK);
     }
