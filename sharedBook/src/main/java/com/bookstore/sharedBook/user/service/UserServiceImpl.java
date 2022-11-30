@@ -20,8 +20,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.bookstore.sharedBook.config.exception.ErrorCode.PASSWORD_NOT_MATCH;
-import static com.bookstore.sharedBook.config.exception.ErrorCode.USER_NOT_FOUND;
+import static com.bookstore.sharedBook.config.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -68,6 +67,15 @@ public class UserServiceImpl implements UserService{
     public String getUserIdFromUserEmail(String email) {
         User user = userRepository.findUserByEmail(email).orElseThrow(()->new CustomException(USER_NOT_FOUND));
         return user.getId().toString();
+    }
+
+    @Override
+    public boolean getUserExistence(String email) {
+        Optional<User> user = userRepository.findUserByEmail(email);
+        if(user.isPresent()){
+            return false;
+        }
+        return true;
     }
 
     @Override

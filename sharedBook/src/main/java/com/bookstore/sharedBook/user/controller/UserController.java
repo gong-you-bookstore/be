@@ -1,5 +1,6 @@
 package com.bookstore.sharedBook.user.controller;
 
+import com.bookstore.sharedBook.common.CommonResult;
 import com.bookstore.sharedBook.common.ResponseService;
 import com.bookstore.sharedBook.common.SingleResult;
 import com.bookstore.sharedBook.user.dto.request.SignInRequestDto;
@@ -35,5 +36,10 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<SingleResult<UserInfoResponseDto>> userInfo(@RequestHeader("X-AUTH-TOKEN") String accessToken){
         return new ResponseEntity<>(responseService.getSingleResult(userService.getUserInfo(accessToken)), HttpStatus.OK);
+    }
+
+    @GetMapping("/check")
+    public ResponseEntity<CommonResult> duplicationCheck(@RequestParam String email){
+        return new ResponseEntity<>(responseService.getSimpleResult(userService.getUserExistence(email)), HttpStatus.OK);
     }
 }
