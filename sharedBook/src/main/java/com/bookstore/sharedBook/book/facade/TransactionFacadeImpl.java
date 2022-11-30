@@ -5,7 +5,10 @@ import com.bookstore.sharedBook.book.dto.request.RespondTransactionDto;
 import com.bookstore.sharedBook.book.entity.ShelfStatus;
 import com.bookstore.sharedBook.book.service.BookServiceImpl;
 import com.bookstore.sharedBook.book.service.ShelfServiceImpl;
+import com.bookstore.sharedBook.config.exception.CustomException;
+import com.bookstore.sharedBook.config.exception.ErrorCode;
 import com.bookstore.sharedBook.message.service.MessageServiceImpl;
+import com.bookstore.sharedBook.user.dto.response.UserInfoResponseDto;
 import com.bookstore.sharedBook.user.jwt.JwtTokenProvider;
 import com.bookstore.sharedBook.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +27,18 @@ public class TransactionFacadeImpl implements TransactionFacade{
 
     @Override
     public void requestTransaction(String accessToken, RequestTransactionDto requestTransactionDto) {
-        //TODO 요청한 자의 토큰이 모자라면 에러
+        String userId = jwtTokenProvider.getUserIdFromToken(accessToken);
+        String userEmail = userService.getUserEmailFromUserId(userId);
+        //본인에게 거래 요청 불가
+        if(requestTransactionDto.getReceiverEmail().equals(userEmail)){
+            throw new CustomException(ErrorCode.TRANSACTION_INVALID);
+        }
+        //요청한 자의 토큰이 모자라면 에러
+        int userToken = userService.getUserInfo(accessToken).getToken();
+        int shelfToken = shelfService.getTokenFromShelf(requestTransactionDto.getShelfId());
+        if (userToken - shelfToken < 0){
+            throw new CustomException(ErrorCode.TOKEN_NOT_ENOUGH);
+        }
         //책의 상태 바꾸고
         shelfService.patchShelfStatus(requestTransactionDto.getShelfId(), ShelfStatus.PENDING.getState());
         //메시지 보내고
