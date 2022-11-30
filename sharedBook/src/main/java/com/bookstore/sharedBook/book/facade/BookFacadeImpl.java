@@ -57,8 +57,9 @@ public class BookFacadeImpl implements BookFacade{
     public ShelfDetailResponseDto getShelf(String token, Long isbn, String userEmail) {
         String userId = jwtTokenProvider.getUserIdFromToken(token);
         Shelf shelf = shelfService.getShelf(isbn, userService.getUserIdFromUserEmail(userEmail));
-        List<String> fileNameList = fileService.getFileIdsByShelfId(shelf.getId().toString());
-        return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileNameList);
+        List<String> fileNameList = fileService.getFileNamesByShelfId(shelf.getId().toString());
+        List<String> fileUrlList = fileService.getFileUrlFromFileNameList(fileNameList);
+        return ShelfDetailResponseDto.toShelfResponseDto(shelf, fileUrlList);
     }
 
     @Override
