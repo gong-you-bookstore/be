@@ -29,8 +29,14 @@ public class TransactionFacadeImpl implements TransactionFacade{
     public void requestTransaction(String accessToken, RequestTransactionDto requestTransactionDto) {
         String userId = jwtTokenProvider.getUserIdFromToken(accessToken);
         String userEmail = userService.getUserEmailFromUserId(userId);
-        //본인에게 거래 요청 불가
+        //본인이 거래 요청하고 수락 불가
         if(requestTransactionDto.getReceiverEmail().equals(userEmail)){
+            throw new CustomException(ErrorCode.TRANSACTION_INVALID);
+        }
+        //판매자 본인에게 거래 요청 불가
+        String shelfUploaderId = shelfService.getShelfUploaderIdByShelfId(requestTransactionDto.getShelfId());
+        String shelfUploaderEmail = userService.getUserEmailFromUserId(shelfUploaderId);
+        if(shelfUploaderEmail.equals(requestTransactionDto.getReceiverEmail())){
             throw new CustomException(ErrorCode.TRANSACTION_INVALID);
         }
         //요청한 자의 토큰이 모자라면 에러
