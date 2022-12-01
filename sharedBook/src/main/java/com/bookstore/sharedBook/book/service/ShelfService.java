@@ -15,4 +15,5 @@ public interface ShelfService {
     List<Shelf> getShelfByUserId(String userId);
     void patchShelfStatus(String shelfId, String status);
     Integer getTokenFromShelf(String shelfId);
+    String getShelfUploaderIdByShelfId(String shelfId);
 }

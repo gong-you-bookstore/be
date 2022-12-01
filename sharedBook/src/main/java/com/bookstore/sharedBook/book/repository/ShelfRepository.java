@@ -13,4 +13,5 @@ public interface ShelfRepository {
     List<Shelf> getShelfByUserId(UUID userId);
     long patchShelfStatus(UUID shelfId, String status);
     Integer getTokenFromShelf(UUID shelfId);
+    UUID getShelfUploaderIdByShelfId(UUID shelfId);
 }

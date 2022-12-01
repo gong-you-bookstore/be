@@ -66,4 +66,13 @@ public class ShelfRepositoryImpl implements ShelfRepository{
                 .where(shelf.id.eq(shelfId))
                 .fetchOne();
     }
+
+    @Override
+    public UUID getShelfUploaderIdByShelfId(UUID shelfId) {
+        return jpaQueryFactory
+                .select(shelf.userId)
+                .from(shelf)
+                .where(shelf.id.eq(shelfId))
+                .fetchOne();
+    }
 }
